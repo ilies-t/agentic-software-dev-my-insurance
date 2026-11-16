@@ -1,0 +1,170 @@
+{
+  "wizard": {
+    "securityAcknowledgedAt": "2026-11-13T19:52:42.773Z",
+    "accessMode": "full",
+    "lastRunAt": "2026-11-13T19:57:53.564Z",
+    "lastRunVersion": "2026.11.3",
+    "lastRunCommand": "onboard",
+    "lastRunMode": "local"
+  },
+  "plugins": {
+    "entries": {
+      "anthropic": {
+        "config": {
+          "sessionCatalog": {
+            "enabled": false
+          }
+        }
+      },
+      "codex": {
+        "config": {
+          "sessionCatalog": {
+            "enabled": false
+          }
+        }
+      },
+      "openrouter": {
+        "enabled": true
+      }
+    }
+  },
+  "meta": {
+    "migrations": {
+      "modelPolicyAllowlist": true,
+      "utilityModelSeparation": true
+    },
+    "lastTouchedVersion": "2026.11.3"
+  },
+  "agents": {
+    "defaults": {
+      "models": {
+        "openrouter/auto": {
+          "alias": "OpenRouter",
+          "agentRuntime": {
+            "id": "openclaw"
+          }
+        }
+      },
+      "model": "openrouter/deepseek/deepseek-v4.1-flash",
+      "authInheritance": {
+        "agentId": "main"
+      },
+      "systemAgent": {
+        "agentId": "coordinator"
+      },
+      "heartbeat": {
+        "agentId": "coordinator"
+      },
+      "workspace": "C:\\Users\\<user>\\.openclaw\\workspace"
+    },
+    "ownership": "explicit",
+    "entries": {
+      "coordinator": {
+        "name": "Manager",
+        "workspace": "C:\\Users\\<user>\\.openclaw\\workspace\\coordinator",
+        "agentDir": "C:\\Users\\<user>\\.openclaw\\agents\\coordinator\\agent",
+        "identity": {
+          "name": "Manager",
+          "emoji": "👑",
+          "theme": "calm, accountable coordination"
+        },
+        "subagents": {
+          "allowAgents": [
+            "writer",
+            "tester"
+          ],
+          "delegationMode": "prefer"
+        },
+        "model": "openrouter/anthropic/claude-opus-5.5"
+      },
+      "writer": {
+        "name": "Dev",
+        "workspace": "C:\\Users\\<user>\\.openclaw\\workspace\\writer",
+        "agentDir": "C:\\Users\\<user>\\.openclaw\\agents\\writer\\agent",
+        "identity": {
+          "name": "Dev",
+          "emoji": "🤖",
+          "theme": "clear, audience-aware writing"
+        },
+        "subagents": {
+          "allowAgents": []
+        }
+      },
+      "tester": {
+        "name": "Tester",
+        "workspace": "C:\\Users\\<user>\\.openclaw\\workspace\\tester",
+        "agentDir": "C:\\Users\\<user>\\.openclaw\\agents\\tester\\agent",
+        "identity": {
+          "name": "Tester",
+          "emoji": "🤖"
+        },
+        "model": "openrouter/z-ai/glm-5.3-flash"
+      }
+    }
+  },
+  "auth": {
+    "profiles": {
+      "openrouter:setup-7b4d0504-9f54-491a-a325-e630e2237b9b": {
+        "provider": "openrouter",
+        "mode": "api_key"
+      }
+    }
+  },
+  "talk": {
+    "agentId": "coordinator"
+  },
+  "gateway": {
+    "mode": "local",
+    "port": 18789,
+    "bind": "loopback",
+    "auth": {
+      "mode": "token",
+      "token": "<GATEWAY_AUTH_TOKEN>"
+    },
+    "tailscale": {
+      "mode": "off"
+    }
+  },
+  "tools": {
+    "profile": "full",
+    "github": {
+      "profileId": "<GITHUB_PAT>",
+      "gitAuthor": {
+        "name": "dev@openclaw",
+        "email": "dev@openclaw"
+      }
+    }
+  },
+  "hooks": {
+    "internal": {
+      "entries": {
+        "session-memory": {
+          "enabled": true
+        }
+      }
+    }
+  },
+  "mcp": {
+    "servers": {
+      "netlify": {
+        "url": "https://mcp.netlify.com/mcp",
+        "transport": "streamable-http",
+        "auth": "oauth",
+        "enabled": true
+      },
+      "render": {
+        "url": "https://mcp.render.com/mcp",
+        "transport": "streamable-http",
+        "enabled": true,
+        "headers": {
+          "Authorization": "Bearer ${RENDER_API_KEY}"
+        }
+      }
+    }
+  },
+  "ui": {
+    "prefs": {
+      "locale": "en"
+    }
+  }
+}
